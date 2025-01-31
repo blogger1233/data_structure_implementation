@@ -6,7 +6,7 @@
 int read_line(char str[],int n);
 
 int main(){
-	char message_string[MAX_REMIND][MSG_LENGTH+3];
+	char reminders[MAX_REMIND][MSG_LENGTH+3];
 	char day_string[3],message_string[MSG_LENGTH+1];
 	int day,i,j,num_remind=0;
 	for(;;){
@@ -15,24 +15,33 @@ int main(){
 	    }
 	    else{
 		printf("Enter day and reminder: ");
-		scanf("%2d",day);
+		scanf("%2d",&day);
 		if(day==0){
 		    break;
 		}
 		sprintf(day_string,"%2d",day);
 		read_line(message_string,MSG_LENGTH);
 		for(i=0;i<num_remind;i++){
-		    if(strcmp(message_string,reminder[i])<0){
+		    if(strcmp(day_string,reminders[i])<0){
 			break;
 		    }
 		}
-		for(j=num_remind;j<i;j--){
-		    strcpy(reminder[j+1],reminder[j]);
+		for(j=num_remind;j>i;j--){
+		    strcpy(reminders[j],reminders[j-1]);
 		}
-		    strcpy(reminder[i],day_string);
-		    strcat(reminder[i],message_string);
-		    :
+		    strcpy(reminders[i],day_string);
+		    strcat(reminders[i],message_string);
+		    num_remind++; 
+
+		    
+
 		}
+	
+       }
+	printf("\n--day reminder--\n");
+	for(int i=0;i<num_remind;i++){
+	    printf("%s\n",reminders[i]);
+	}	
 	return 0;
 }
 int read_line(char str[],int n){
